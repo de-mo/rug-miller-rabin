@@ -8,7 +8,7 @@ rust-version = "1.74"
 license = "LGPL-3.0+"
 repository = "https://github.com/de-mo/rug-miller-rabin"
 readme = "README.md"
-keywords = ["bignum", "gmp", "math", "prime", "miller", "rabin"]
+keywords = ["gmp", "math", "prime", "miller", "rabin"]
 categories = ["cryptography", "mathematics"]
 
 [dependencies]
