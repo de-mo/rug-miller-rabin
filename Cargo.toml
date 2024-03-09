@@ -1,0 +1,23 @@
+[package]
+name = "rug-miller-rabin"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rayon = { version = "1.9", optional = true }
+rand = "0.8"
+
+[dependencies.rug]
+version = "1.24"
+default-features = false
+features = ["integer", "std", "rand"]
+
+[dev-dependencies]
+num-bigint = "0.4"
+miller_rabin = "1"
+num-traits = "0.2"
+
+[features]
+default = ["rayon"]
