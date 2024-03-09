@@ -1,9 +1,16 @@
 [package]
 name = "rug-miller-rabin"
+description = "A multi-threaded, arbitrary precision implementation of the Miller-Rabin primality test using rug (GMP)."
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Denis Morel"]
+rust-version = "1.74"
+license = "LGPL-3.0+"
+license-file = "lgpl-3.0.md"
+repository = "https://github.com/de-mo/rug-miller-rabin"
+readme = "README.md"
+keywords = ["bignum", "gmp", "math", "prime", "miller", "rabin"]
+categories = ["cryptography", "mathematics"]
 
 [dependencies]
 rayon = { version = "1.9", optional = true }
@@ -15,6 +22,7 @@ default-features = false
 features = ["integer", "std", "rand"]
 
 [dev-dependencies]
+# For performance tests
 num-bigint = "0.4"
 miller_rabin = "1"
 num-traits = "0.2"
