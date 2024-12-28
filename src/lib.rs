@@ -38,7 +38,7 @@ use std::iter::repeat_with;
 #[cfg(feature = "rayon")]
 use rayon::prelude::*;
 
-struct Seed(*const ());
+struct Seed {}
 impl ThreadRandGen for Seed {
     fn gen(&mut self) -> u32 {
         // not really random
@@ -133,7 +133,7 @@ pub fn is_prime(n: &Integer, k: usize) -> bool {
     }
 
     let samples: Vec<Integer> = repeat_with(|| {
-        let mut seed = Seed(&());
+        let mut seed = Seed {};
         let mut rand = ThreadRandState::new_custom(&mut seed);
         n_minus_one.clone().random_below(&mut rand)
     })
@@ -156,72 +156,60 @@ pub fn is_prime(n: &Integer, k: usize) -> bool {
 
 #[cfg(test)]
 mod tests {
-    const K: usize = 16;
-
     use super::*;
     use num_bigint::BigUint;
     use num_traits::Num;
-    use std::io;
     use std::time::SystemTime;
 
+    const K: usize = 16;
+
     #[test]
-    fn test_prime() -> io::Result<()> {
+    fn test_prime()  {
         let prime: u64 = 0x7fff_ffff;
         assert!(is_prime(&Integer::from(prime), K));
-        Ok(())
     }
 
     #[test]
-    fn test_prime_biguint() -> io::Result<()> {
+    fn test_prime_biguint()  {
         let prime = Integer::from(0x7fff_ffff);
         assert!(is_prime(&prime, K));
-        Ok(())
     }
 
     #[test]
-    fn test_composite() -> io::Result<()> {
+    fn test_composite()  {
         let composite = Integer::from(0xffff_ffff_ffff_ffffu64);
         assert!(!is_prime(&composite, K));
-        Ok(())
     }
 
     #[test]
-    fn test_small_primes() -> io::Result<()> {
+    fn test_small_primes()  {
         for prime in &[2u8, 3u8, 5u8, 7u8, 11u8, 13u8] {
             assert!(is_prime(&Integer::from(*prime), K));
         }
-
-        Ok(())
     }
 
     #[test]
-    fn test_big_mersenne_prime() -> io::Result<()> {
+    fn test_big_mersenne_prime()  {
         let prime = Integer::from(
             Integer::parse_radix(b"170141183460469231731687303715884105727", 10).unwrap(),
         );
-
         assert!(is_prime(&prime, K));
-        Ok(())
     }
 
     #[test]
-    fn test_big_wagstaff_prime() -> io::Result<()> {
+    fn test_big_wagstaff_prime()  {
         let prime = Integer::from(
             Integer::parse_radix(b"56713727820156410577229101238628035243", 10).unwrap(),
         );
-
         assert!(is_prime(&prime, K));
-        Ok(())
     }
 
     #[test]
-    fn test_big_composite() -> io::Result<()> {
+    fn test_big_composite()  {
         let prime = Integer::from(
             Integer::parse_radix(b"170141183460469231731687303715884105725", 10).unwrap(),
         );
-
         assert!(!is_prime(&prime, K));
-        Ok(())
     }
 
     const BIG_PRIMES: [&str;4] = [
@@ -255,8 +243,7 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "performance test"]
-    fn test_prformance() {
+    fn test_performance() {
         let p1 = Integer::from_str_radix(BIG_PRIMES[0], 16).unwrap();
         let p2 = <BigUint>::from_str_radix(BIG_PRIMES[0], 16).unwrap();
         let start2 = SystemTime::now();
@@ -266,7 +253,7 @@ mod tests {
         assert!(is_prime(&p1, 64));
         let duration1 = start1.elapsed().unwrap();
         assert!(duration1 < duration2);
-        println!("Duration BigUInt: {}s", duration2.as_secs_f32());
-        println!("Duration rug: {}s", duration1.as_secs_f32());
+        //println!("Duration BigUInt: {}s", duration2.as_secs_f32());
+        //println!("Duration rug: {}s", duration1.as_secs_f32());
     }
 }
