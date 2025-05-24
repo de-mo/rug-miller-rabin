@@ -13,10 +13,10 @@ categories = ["cryptography", "mathematics"]
 
 [dependencies]
 rayon = { version = "1", optional = true }
-rand = "0.8"
+rand = "0.9"
 
 [dependencies.rug]
-version = "1.26"
+version = "1.27"
 default-features = false
 features = ["integer", "std", "rand"]
 
