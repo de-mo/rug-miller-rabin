@@ -264,7 +264,7 @@ dependencies = [
 
 [[package]]
 name = "rug-miller-rabin"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "miller_rabin",
  "num-bigint",
