@@ -40,7 +40,7 @@ use rayon::prelude::*;
 
 struct Seed {}
 impl ThreadRandGen for Seed {
-    fn gen(&mut self) -> u32 {
+    fn r#gen(&mut self) -> u32 {
         // not really random
         rand::random()
     }
